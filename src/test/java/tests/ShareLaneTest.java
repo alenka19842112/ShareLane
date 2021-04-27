@@ -54,6 +54,7 @@ public class ShareLaneTest {
         driver.findElement(By.xpath("//*[@value='Register']")).click(); //кнопка Register
 
         driver.quit(); //закрытие хрома
+        driver.quit(); //закрытие хрома
     }
 
 }
