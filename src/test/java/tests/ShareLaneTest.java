@@ -15,7 +15,7 @@ public class ShareLaneTest {
 
         driver.findElement(By.name("zip_code")).sendKeys("222222");// посылаем значение в поле zip
         driver.findElement(By.xpath("//*[@value='Continue']")).click(); //кнопка Continue
-         driver.quit(); //закрытие хрома
+        driver.quit(); //закрытие хрома
 
     }
 
@@ -39,11 +39,30 @@ public class ShareLaneTest {
     }
 
     @Test
-    public void fillSignUpFieldCheckInEmptyFieldsTest(){
+    public void fillSignUpFieldEmptyOptionalFieldTest() {
         System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver.exe"); //путь к драйверу хром
         WebDriver driver = new ChromeDriver();
 
         driver.get("https://www.sharelane.com/cgi-bin/register.py?page=1&zip_code=222222"); // открытие страницы регистрации
+
+        driver.findElement(By.name("first_name")).sendKeys("Ivanov");// посылаем значение в поле first_name
+        driver.findElement(By.name("last_name")).sendKeys("");// посылаем значение в поле last_name
+        driver.findElement(By.name("email")).sendKeys("asdf@gmail.com");// посылаем значение в поле email
+        driver.findElement(By.name("password1")).sendKeys("1111");// посылаем значение в поле password1
+        driver.findElement(By.name("password2")).sendKeys("1111");// посылаем значение в поле password2
+
+        driver.findElement(By.xpath("//*[@value='Register']")).click(); //кнопка Register
+
+        driver.quit(); //закрытие хрома
+
+    }
+
+    @Test
+    public void fillSignUpFieldCheckInEmptyFieldsTest() {
+        System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver.exe"); //путь к драйверу хром
+        WebDriver driver = new ChromeDriver();
+
+        driver.get("https://www.sharelane.com/cgi-bin/register.py?page=1&zip_code=22222"); // открытие страницы регистрации
 
         driver.findElement(By.name("first_name")).sendKeys("");// пустое поле first_name
         driver.findElement(By.name("last_name")).sendKeys("");// пустое поле last_name
@@ -54,7 +73,80 @@ public class ShareLaneTest {
         driver.findElement(By.xpath("//*[@value='Register']")).click(); //кнопка Register
 
         driver.quit(); //закрытие хрома
+    }
+
+    @Test
+    public void fillSignUpFieldInvalidFieldEmailWithoutAtTest() {
+        System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver.exe"); //путь к драйверу хром
+        WebDriver driver = new ChromeDriver();
+
+        driver.get("https://www.sharelane.com/cgi-bin/register.py?page=1&zip_code=22222"); // открытие страницы регистрации
+
+        driver.findElement(By.name("first_name")).sendKeys("Ivanov");// посылаем значение в поле first_name
+        driver.findElement(By.name("last_name")).sendKeys("Ivan");// посылаем значение в поле last_name
+        driver.findElement(By.name("email")).sendKeys("asdfgmail.com");// посылаем значение в поле email без символа "@"
+        driver.findElement(By.name("password1")).sendKeys("1111");// посылаем значение в поле password1
+        driver.findElement(By.name("password2")).sendKeys("1111");// посылаем значение в поле password2
+
+        driver.findElement(By.xpath("//*[@value='Register']")).click(); //кнопка Register
+
         driver.quit(); //закрытие хрома
     }
+
+    @Test
+    public void fillSignUpFieldInvalidFieldEmailWithoutPointTest(){
+        System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver.exe"); //путь к драйверу хром
+        WebDriver driver = new ChromeDriver();
+
+        driver.get("https://www.sharelane.com/cgi-bin/register.py?page=1&zip_code=22222"); // открытие страницы регистрации
+
+        driver.findElement(By.name("first_name")).sendKeys("Ivanov");// посылаем значение в поле first_name
+        driver.findElement(By.name("last_name")).sendKeys("Ivan");// посылаем значение в поле last_name
+        driver.findElement(By.name("email")).sendKeys("asdf@gmailcom");// посылаем значение в поле email без символа "."
+        driver.findElement(By.name("password1")).sendKeys("1111");// посылаем значение в поле password1
+        driver.findElement(By.name("password2")).sendKeys("1111");// посылаем значение в поле password2
+
+        driver.findElement(By.xpath("//*[@value='Register']")).click(); //кнопка Register
+
+        driver.quit(); //закрытие хрома
+
+    }
+
+    @Test
+    public void fillSignUpFieldInvalidFieldEmailWithoutExpansionTest(){
+        System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver.exe"); //путь к драйверу хром
+        WebDriver driver = new ChromeDriver();
+
+        driver.get("https://www.sharelane.com/cgi-bin/register.py?page=1&zip_code=22222"); // открытие страницы регистрации
+
+        driver.findElement(By.name("first_name")).sendKeys("Ivanov");// посылаем значение в поле first_name
+        driver.findElement(By.name("last_name")).sendKeys("Ivan");// посылаем значение в поле last_name
+        driver.findElement(By.name("email")).sendKeys("asdf@gmail.");// посылаем значение в поле email без расширения после "."
+        driver.findElement(By.name("password1")).sendKeys("1111");// посылаем значение в поле password1
+        driver.findElement(By.name("password2")).sendKeys("1111");// посылаем значение в поле password2
+
+        driver.findElement(By.xpath("//*[@value='Register']")).click(); //кнопка Register
+
+        driver.quit(); //закрытие хрома
+    }
+
+    @Test
+    public void fillSignUpFieldIncorrectPasswordConfirmationTest(){
+        System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver.exe"); //путь к драйверу хром
+        WebDriver driver = new ChromeDriver();
+
+        driver.get("https://www.sharelane.com/cgi-bin/register.py?page=1&zip_code=22222"); // открытие страницы регистрации
+
+        driver.findElement(By.name("first_name")).sendKeys("Ivanov");// посылаем значение в поле first_name
+        driver.findElement(By.name("last_name")).sendKeys("Ivan");// посылаем значение в поле last_name
+        driver.findElement(By.name("email")).sendKeys("asdf@gmail.com");// посылаем значение в поле email
+        driver.findElement(By.name("password1")).sendKeys("1111");// посылаем значение в поле password1
+        driver.findElement(By.name("password2")).sendKeys("1112");// посылаем значение в поле password2, которое отличается от pass1
+
+        driver.findElement(By.xpath("//*[@value='Register']")).click(); //кнопка Register
+
+        driver.quit(); //закрытие хрома
+    }
+
 
 }
